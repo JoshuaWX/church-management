@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Member {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String?
+  phone     String?
+  birthday  DateTime
+  picture   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relationships
+  attendanceRecords AttendanceRecord[]
+  
+  @@map("members")
+}
+
+model AttendanceRecord {
+  id       Int      @id @default(autoincrement())
+  date     DateTime
+  present  Boolean  @default(false)
+  memberId Int
+  
+  // Relationships
+  member   Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  
+  @@unique([date, memberId])
+  @@map("attendance_records")
+}
+
+model AttendanceSession {
+  id          Int      @id @default(autoincrement())
+  date        DateTime @unique
+  totalMembers Int     @default(0)
+  presentCount Int     @default(0)
+  createdAt   DateTime @default(now())
+  
+  @@map("attendance_sessions")
+}
