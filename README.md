@@ -1,6 +1,6 @@
 # Church Management System
 
-A modern web application for managing church members, birthdays, and attendance built with Next.js, TypeScript, and Tailwind CSS.
+A modern web application for managing church members, birthdays, and attendance built with Next.js, TypeScript, and Tailwind CSS. (AI Generated)
 
 ## Features
 
