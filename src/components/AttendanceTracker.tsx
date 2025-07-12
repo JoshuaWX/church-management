@@ -111,6 +111,12 @@ export function AttendanceTracker() {
   }
 
   const saveAttendance = async () => {
+    // Check if attendance already exists for this date
+    if (savedRecords[selectedDate]) {
+      alert('Attendance has already been taken for this date. You cannot save it again.')
+      return
+    }
+
     try {
       console.log('Saving attendance:', { date: selectedDate, attendanceRecords: attendance })
       
@@ -229,10 +235,15 @@ export function AttendanceTracker() {
         <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
           <button
             onClick={saveAttendance}
-            className="w-full sm:w-auto bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 flex items-center justify-center text-sm sm:text-base"
+            disabled={!!savedRecords[selectedDate]}
+            className={`w-full sm:w-auto px-4 py-2 rounded-md flex items-center justify-center text-sm sm:text-base ${
+              savedRecords[selectedDate] 
+                ? 'bg-gray-400 text-gray-700 cursor-not-allowed' 
+                : 'bg-primary-600 text-white hover:bg-primary-700'
+            }`}
           >
             <Check className="h-4 w-4 mr-2" />
-            Save Attendance
+            {savedRecords[selectedDate] ? 'Attendance Already Taken' : 'Save Attendance'}
           </button>
           <button 
             className="w-full sm:w-auto bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 flex items-center justify-center text-sm sm:text-base"

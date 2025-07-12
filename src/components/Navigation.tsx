@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Users, Calendar, UserCheck, Menu, X } from 'lucide-react'
+import { Home, Users, Calendar, UserCheck, Menu, X, BarChart3 } from 'lucide-react'
 import { useState } from 'react'
 
 const navigation = [
@@ -10,6 +10,7 @@ const navigation = [
   { name: 'Members', href: '/members', icon: Users },
   { name: 'Birthdays', href: '/birthdays', icon: Calendar },
   { name: 'Attendance', href: '/attendance', icon: UserCheck },
+  { name: 'Reports', href: '/reports', icon: BarChart3 },
 ]
 
 export function Navigation() {

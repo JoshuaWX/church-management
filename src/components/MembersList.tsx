@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { format } from 'date-fns'
 import { Plus, Edit, Trash2, Calendar, User } from 'lucide-react'
-import { DataMigration } from './DataMigration'
 
 interface Member {
   id: number
@@ -107,9 +106,6 @@ export function MembersList() {
 
   return (
     <div className="space-y-6">
-      {/* Data Migration Component */}
-      <DataMigration />
-
       {/* Add Member Button */}
       <div className="flex justify-end">
         <button
