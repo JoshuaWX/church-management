@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { MobileBottomNav } from '@/components/MobileBottomNav'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -7,6 +8,8 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Church Management System',
   description: 'Manage church members, birthdays, and attendance',
+  viewport: 'width=device-width, initial-scale=1',
+  themeColor: '#2563eb',
 }
 
 export default function RootLayout({
@@ -16,7 +19,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="pb-16 sm:pb-0">
+          {children}
+        </div>
+        <MobileBottomNav />
+      </body>
     </html>
   )
 }

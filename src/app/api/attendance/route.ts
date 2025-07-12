@@ -61,20 +61,11 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // Create new records
-    const records = await prisma.attendanceRecord.createMany({
-      data: attendanceRecords.map((record: any) => ({
-        date: new Date(date),
-        memberId: record.memberId,
-        present: record.present
-      }))
-    })
-
-    // Update or create attendance session
+    // Update or create attendance session first
     const totalMembers = attendanceRecords.length
     const presentCount = attendanceRecords.filter((r: any) => r.present).length
 
-    await prisma.attendanceSession.upsert({
+    const session = await prisma.attendanceSession.upsert({
       where: {
         date: new Date(date)
       },
@@ -87,6 +78,16 @@ export async function POST(request: NextRequest) {
         totalMembers,
         presentCount
       }
+    })
+
+    // Create new records linked to the session
+    const records = await prisma.attendanceRecord.createMany({
+      data: attendanceRecords.map((record: any) => ({
+        date: new Date(date),
+        memberId: record.memberId,
+        present: record.present,
+        sessionId: session.id
+      }))
     })
 
     return NextResponse.json({ message: 'Attendance saved successfully', count: records.count })

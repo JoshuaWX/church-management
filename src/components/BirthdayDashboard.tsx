@@ -103,26 +103,26 @@ export function BirthdayDashboard() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <div className="flex items-center mb-6">
-        <Cake className="h-6 w-6 text-pink-500 mr-2" />
-        <h2 className="text-xl font-semibold text-gray-900">Today&apos;s Birthdays</h2>
+    <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+      <div className="flex items-center mb-4 sm:mb-6">
+        <Cake className="h-5 w-5 sm:h-6 sm:w-6 text-pink-500 mr-2" />
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Today&apos;s Birthdays</h2>
       </div>
       
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
         {todaysBirthdays.map((member) => (
-          <div key={member.id} className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-4 border border-pink-200">
-            <div className="flex items-center space-x-4">
+          <div key={member.id} className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-3 sm:p-4 border border-pink-200">
+            <div className="flex items-center space-x-3 sm:space-x-4">
               <div className="flex-shrink-0">
-                <div className="h-16 w-16 rounded-full bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-500 text-lg font-medium">
+                <div className="h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-500 text-sm sm:text-lg font-medium">
                     {member.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
               </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-medium text-gray-900">{member.name}</h3>
-                <p className="text-sm text-gray-600">
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm sm:text-lg font-medium text-gray-900 truncate">{member.name}</h3>
+                <p className="text-xs sm:text-sm text-gray-600">
                   🎉 Happy Birthday! 🎂
                 </p>
                 <p className="text-xs text-gray-500 mt-1">

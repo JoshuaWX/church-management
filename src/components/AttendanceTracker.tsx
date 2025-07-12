@@ -192,49 +192,50 @@ export function AttendanceTracker() {
   const totalCount = attendance.length
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Date Selection and Stats */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-          <div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Select Date</h3>
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
+          <div className="w-full sm:w-auto">
+            <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">Select Date</h3>
             <div className="flex items-center space-x-2">
-              <Calendar className="h-5 w-5 text-gray-400" />
+              <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
               <input
                 type="date"
                 value={selectedDate}
                 onChange={(e) => handleDateChange(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full sm:w-auto px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm sm:text-base"
               />
             </div>
           </div>
           
-          <div className="mt-4 md:mt-0">
-            <div className="bg-primary-50 rounded-lg p-4">
+          <div className="w-full sm:w-auto">
+            <div className="bg-primary-50 rounded-lg p-3 sm:p-4">
               <div className="flex items-center justify-center space-x-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary-600">{presentCount}</div>
-                  <div className="text-sm text-gray-600">Present</div>
+                  <div className="text-xl sm:text-2xl font-bold text-primary-600">{presentCount}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Present</div>
                 </div>
-                <div className="text-gray-300">/</div>
+                <div className="text-gray-300 text-lg sm:text-xl">/</div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-600">{totalCount}</div>
-                  <div className="text-sm text-gray-600">Total</div>
+                  <div className="text-xl sm:text-2xl font-bold text-gray-600">{totalCount}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Total</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="flex space-x-3">
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
           <button
             onClick={saveAttendance}
-            className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 flex items-center"
+            className="w-full sm:w-auto bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 flex items-center justify-center text-sm sm:text-base"
           >
             <Check className="h-4 w-4 mr-2" />
             Save Attendance
           </button>
-          <button className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 flex items-center"
+          <button 
+            className="w-full sm:w-auto bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 flex items-center justify-center text-sm sm:text-base"
             onClick={exportAttendance}
           >
             <Download className="h-4 w-4 mr-2" />
@@ -245,30 +246,30 @@ export function AttendanceTracker() {
 
       {/* Attendance List */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-medium text-gray-900 flex items-center">
-            <Users className="h-5 w-5 mr-2" />
-            Mark Attendance for {format(new Date(selectedDate), 'MMMM do, yyyy')}
+        <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200">
+          <h3 className="text-base sm:text-lg font-medium text-gray-900 flex items-center">
+            <Users className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+            <span className="truncate">Mark Attendance for {format(new Date(selectedDate), 'MMM do, yyyy')}</span>
           </h3>
         </div>
         <div className="divide-y divide-gray-200">
           {attendance.map((record) => (
-            <div key={record.memberId} className="p-4 flex items-center justify-between hover:bg-gray-50">
-              <div className="flex items-center">
-                <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center mr-4">
-                  <span className="text-gray-600 font-medium">
+            <div key={record.memberId} className="p-3 sm:p-4 flex items-center justify-between hover:bg-gray-50">
+              <div className="flex items-center flex-1 min-w-0">
+                <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-gray-200 flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
+                  <span className="text-gray-600 font-medium text-xs sm:text-sm">
                     {record.memberName.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
-                <div>
-                  <h4 className="text-sm font-medium text-gray-900">{record.memberName}</h4>
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-sm sm:text-base font-medium text-gray-900 truncate">{record.memberName}</h4>
                 </div>
               </div>
               
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center ml-3">
                 <button
                   onClick={() => toggleAttendance(record.memberId)}
-                  className={`flex items-center px-4 py-2 rounded-md text-sm font-medium ${
+                  className={`flex items-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium ${
                     record.present
                       ? 'bg-green-100 text-green-800 border border-green-200'
                       : 'bg-red-100 text-red-800 border border-red-200'
@@ -276,13 +277,15 @@ export function AttendanceTracker() {
                 >
                   {record.present ? (
                     <>
-                      <Check className="h-4 w-4 mr-1" />
-                      Present
+                      <Check className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                      <span className="hidden sm:inline">Present</span>
+                      <span className="sm:hidden">✓</span>
                     </>
                   ) : (
                     <>
-                      <X className="h-4 w-4 mr-1" />
-                      Absent
+                      <X className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                      <span className="hidden sm:inline">Absent</span>
+                      <span className="sm:hidden">✗</span>
                     </>
                   )}
                 </button>
@@ -294,8 +297,8 @@ export function AttendanceTracker() {
 
       {/* Saved Records Summary */}
       {Object.keys(savedRecords).length > 0 && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Recent Attendance Records</h3>
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Recent Attendance Records</h3>
           <div className="space-y-2">
             {Object.entries(savedRecords)
               .sort(([a], [b]) => new Date(b).getTime() - new Date(a).getTime())
@@ -304,12 +307,12 @@ export function AttendanceTracker() {
                 const present = records.filter(r => r.present).length
                 const total = records.length
                 return (
-                  <div key={date} className="flex justify-between items-center p-3 bg-gray-50 rounded-md">
-                    <span className="text-sm font-medium text-gray-900">
-                      {format(new Date(date), 'MMMM do, yyyy')}
+                  <div key={date} className="flex justify-between items-center p-2 sm:p-3 bg-gray-50 rounded-md">
+                    <span className="text-xs sm:text-sm font-medium text-gray-900 truncate">
+                      {format(new Date(date), 'MMM do, yyyy')}
                     </span>
-                    <span className="text-sm text-gray-600">
-                      {present}/{total} present ({Math.round((present/total) * 100)}%)
+                    <span className="text-xs sm:text-sm text-gray-600 ml-2">
+                      {present}/{total} ({Math.round((present/total) * 100)}%)
                     </span>
                   </div>
                 )
