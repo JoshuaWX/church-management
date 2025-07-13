@@ -66,7 +66,7 @@ export function AttendanceTracker() {
     }
   }, [members])
 
-  // Load saved attendance records from database
+  // Load saved attendance records from database and set attendance for selected date
   useEffect(() => {
     const loadAttendance = async () => {
       try {
@@ -84,14 +84,25 @@ export function AttendanceTracker() {
             }))
           })
           setSavedRecords(recordsByDate)
+          // After loading, set attendance for selected date
+          if (recordsByDate[selectedDate]) {
+            setAttendance(recordsByDate[selectedDate])
+          } else {
+            setAttendance(
+              members.map(member => ({
+                memberId: member.id,
+                memberName: member.name,
+                present: false
+              }))
+            )
+          }
         }
       } catch (error) {
         console.error('Error loading attendance:', error)
       }
     }
-
     loadAttendance()
-  }, [])
+  }, [members, selectedDate])
 
   // Remove the localStorage save effect since we'll save to database
   // useEffect(() => {
@@ -167,7 +178,18 @@ export function AttendanceTracker() {
 
   const handleDateChange = (date: string) => {
     setSelectedDate(date)
-    loadAttendance(date)
+    // After changing date, set attendance for that date
+    if (savedRecords[date]) {
+      setAttendance(savedRecords[date])
+    } else {
+      setAttendance(
+        members.map(member => ({
+          memberId: member.id,
+          memberName: member.name,
+          present: false
+        }))
+      )
+    }
   }
 
   const exportAttendance = () => {
