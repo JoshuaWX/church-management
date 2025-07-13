@@ -6,7 +6,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Church Management System',
+  title: 'Bible-Study HUB',
   description: 'Manage church members, birthdays, and attendance',
   viewport: 'width=device-width, initial-scale=1',
   themeColor: '#2563eb',
