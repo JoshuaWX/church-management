@@ -24,8 +24,8 @@ export function Navigation() {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <h1 className="text-lg sm:text-xl font-bold text-primary-600">
-                <span className="hidden sm:inline">Church Management</span>
-                <span className="sm:hidden">Church</span>
+                <span className="hidden sm:inline"> Bible-Study HUB</span>
+                <span className="sm:hidden">Bible-Study HUB</span>
               </h1>
             </div>
             {/* Desktop Navigation */}

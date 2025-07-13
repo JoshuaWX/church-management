@@ -265,7 +265,7 @@ export default function AttendanceReports() {
         {/* Overall Statistics */}
         <div className="mt-8 bg-white rounded-lg shadow p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">
-            Overall Church Attendance Statistics
+            Overall Attendance Statistics
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
