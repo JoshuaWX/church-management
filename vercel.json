@@ -3,6 +3,6 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
-    "DATABASE_URL": "file:./dev.db"
+    "DATABASE_URL": "postgresql://neondb_owner:npg_A1zHiNGcQTo0@ep-sparkling-sea-adsn1q4f.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require"
   }
 }
