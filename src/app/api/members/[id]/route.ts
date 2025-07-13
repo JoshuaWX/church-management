@@ -3,16 +3,14 @@ import { prisma } from '@/lib/prisma'
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params
+    const { id } = params
     const numericId = parseInt(id)
-    
     await prisma.member.delete({
       where: { id: numericId }
     })
-    
     return NextResponse.json({ message: 'Member deleted successfully' })
   } catch (error) {
     console.error('Error deleting member:', error)
@@ -22,13 +20,12 @@ export async function DELETE(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params
+    const { id } = params
     const numericId = parseInt(id)
     const { name, email, phone, birthday } = await request.json()
-    
     const member = await prisma.member.update({
       where: { id: numericId },
       data: {
@@ -38,7 +35,6 @@ export async function PUT(
         birthday: new Date(birthday)
       }
     })
-    
     return NextResponse.json(member)
   } catch (error) {
     console.error('Error updating member:', error)
