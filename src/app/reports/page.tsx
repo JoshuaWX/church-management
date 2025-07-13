@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { format } from 'date-fns'
 import { User, Calendar, BarChart3, TrendingUp } from 'lucide-react'
+import { Navigation } from '@/components/Navigation'
+import { MobileBottomNav } from '@/components/MobileBottomNav'
 
 interface Member {
   id: number
@@ -96,26 +98,32 @@ export default function AttendanceReports() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 p-4">
-        <div className="flex items-center justify-center p-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-          <span className="ml-2 text-gray-600">Loading attendance reports...</span>
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <div className="p-4">
+          <div className="flex items-center justify-center p-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+            <span className="ml-2 text-gray-600">Loading attendance reports...</span>
+          </div>
         </div>
+        <MobileBottomNav />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-            Attendance Reports
-          </h1>
-          <p className="text-gray-600">
-            Track individual member attendance and participation rates
-          </p>
-        </div>
+    <div className="min-h-screen bg-gray-50">
+      <Navigation />
+      <div className="p-4 pb-20 sm:pb-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+              Attendance Reports
+            </h1>
+            <p className="text-gray-600">
+              Track individual member attendance and participation rates
+            </p>
+          </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Members List */}
@@ -288,7 +296,9 @@ export default function AttendanceReports() {
             </div>
           </div>
         </div>
+        </div>
       </div>
+      <MobileBottomNav />
     </div>
   )
 }
