@@ -50,7 +50,7 @@ export function MembersList() {
   const handleAddMember = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    const emailRegex = /^[\w-.]+@[\w-]+\.[a-zA-Z]{2,}$/
+    const emailRegex = /^[\w-.]+@[\w.-]+\.[a-zA-Z]{2,}$/
     const phoneRegex = /^[+]?\d{10,15}$/
     if (!emailRegex.test(newMember.email)) {
       setErrorMsg('Please enter a valid email address.')
@@ -108,7 +108,7 @@ export function MembersList() {
   const handleEditMember = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    const emailRegex = /^[\w-.]+@[\w-]+\.[a-zA-Z]{2,}$/
+    const emailRegex = /^[\w-.]+@[\w.-]+\.[a-zA-Z]{2,}$/
     const phoneRegex = /^[+]?\d{10,15}$/
     if (!emailRegex.test(editMember.email)) {
       setErrorMsg('Please enter a valid email address.')
