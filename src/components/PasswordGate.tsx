@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function PasswordGate() {
   const [error, setError] = useState("");
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form

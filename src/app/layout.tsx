@@ -2,17 +2,19 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { MobileBottomNav } from '@/components/MobileBottomNav';
 import PasswordGate from '@/components/PasswordGate';
+import LogoutButton from '@/components/LogoutButton';
 import './globals.css';
 import { cookies } from 'next/headers';
 
 const inter = Inter({ subsets: ['latin'] });
 
+
 export const metadata: Metadata = {
   title: 'Bible-Study HUB',
   description: 'Manage church members, birthdays, and attendance',
-  viewport: 'width=device-width, initial-scale=1',
-  themeColor: '#2563eb',
 };
+
+export const viewport = 'width=device-width, initial-scale=1';
 
 export default async function RootLayout({
   children,
@@ -28,7 +30,12 @@ export default async function RootLayout({
           <PasswordGate />
         ) : (
           <>
-            <div className="pb-16 sm:pb-0">{children}</div>
+            <div className="relative pb-16 sm:pb-0 min-h-screen">
+              <div className="absolute top-4 right-4 z-50">
+                <LogoutButton />
+              </div>
+              {children}
+            </div>
             <MobileBottomNav />
           </>
         )}
