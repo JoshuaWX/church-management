@@ -41,7 +41,7 @@ export function Navigation() {
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2.5 group" aria-label="Home">
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors overflow-hidden p-0.5">
-                <RCCGLogo size="sm" variant="light" />
+                <RCCGLogo size="sm" />
               </div>
               <div className="leading-tight">
                 <span className="text-white font-bold text-sm sm:text-base tracking-tight block">

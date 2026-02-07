@@ -37,13 +37,13 @@ export default function Home() {
       <div className="relative bg-gradient-to-br from-primary-600 via-primary-500 to-primary-700 overflow-hidden">
         {/* Watermark logo */}
         <div className="absolute right-4 sm:right-12 top-1/2 -translate-y-1/2 opacity-[0.06] pointer-events-none">
-          <RCCGLogo size="xl" variant="light" />
+          <RCCGLogo size="xl" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 relative">
           <div className="flex items-start gap-4 sm:gap-5">
             <div className="hidden sm:flex flex-shrink-0 w-14 h-14 rounded-xl bg-white/10 items-center justify-center p-1.5">
-              <RCCGLogo size="md" variant="light" />
+              <RCCGLogo size="md" />
             </div>
             <div className="flex-1 min-w-0">
               <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">

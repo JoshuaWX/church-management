@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Eye, EyeOff, Lock } from 'lucide-react'
 import { RCCGLogo } from './RCCGLogo'
+import Image from 'next/image'
 
 export default function PasswordGate() {
   const [error, setError] = useState("");
@@ -50,24 +51,29 @@ export default function PasswordGate() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-600 via-primary-500 to-primary-700 px-4">
-      {/* Decorative background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-white/5 rounded-full" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-white/5 rounded-full" />
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-accent-500/10 rounded-full blur-2xl" />
-      </div>
+    <div className="relative min-h-screen flex items-center justify-center px-4">
+      {/* Chapel background photo */}
+      <Image
+        src="/images/ruc-chapel.jpg"
+        alt="RUC Chapel"
+        fill
+        className="object-cover"
+        priority
+        quality={85}
+      />
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-primary-900/70 backdrop-blur-[2px]" />
 
-      <div className="relative w-full max-w-sm">
+      <div className="relative z-10 w-full max-w-sm">
         {/* Logo / Branding */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-sm mb-4 ring-1 ring-white/20 p-2">
-            <RCCGLogo size="lg" variant="light" />
+          <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white shadow-xl mb-4 p-2">
+            <RCCGLogo size="lg" />
           </div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">
+          <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow-lg">
             Bible-Study HUB
           </h1>
-          <p className="text-white/50 text-sm mt-1 font-medium">
+          <p className="text-white/70 text-sm mt-1 font-medium drop-shadow">
             Redeemed Christian Church of God
           </p>
         </div>
@@ -75,7 +81,7 @@ export default function PasswordGate() {
         {/* Login Card */}
         <form
           onSubmit={handleSubmit}
-          className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 space-y-5"
+          className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8 space-y-5"
         >
           <div className="text-center">
             <h2 className="text-lg font-semibold text-gray-900">Welcome back</h2>
@@ -143,7 +149,7 @@ export default function PasswordGate() {
         </form>
 
         {/* Footer */}
-        <p className="text-center text-white/40 text-xs mt-6">
+        <p className="text-center text-white/50 text-xs mt-6 drop-shadow">
           Protected access &bull; Contact your fellowship leader for credentials
         </p>
       </div>
