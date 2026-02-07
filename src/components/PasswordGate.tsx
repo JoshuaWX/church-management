@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { Eye, EyeOff, Lock, BookOpen } from 'lucide-react'
+import { Eye, EyeOff, Lock } from 'lucide-react'
+import { RCCGLogo } from './RCCGLogo'
 
 export default function PasswordGate() {
   const [error, setError] = useState("");
@@ -60,13 +61,15 @@ export default function PasswordGate() {
       <div className="relative w-full max-w-sm">
         {/* Logo / Branding */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm mb-4 ring-1 ring-white/20">
-            <BookOpen className="h-8 w-8 text-white" />
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-sm mb-4 ring-1 ring-white/20 p-2">
+            <RCCGLogo size="lg" variant="light" />
           </div>
           <h1 className="text-2xl font-bold text-white tracking-tight">
             Bible-Study HUB
           </h1>
-          <p className="text-white/60 text-sm mt-1">RCCG Fellowship Portal</p>
+          <p className="text-white/50 text-sm mt-1 font-medium">
+            Redeemed Christian Church of God
+          </p>
         </div>
 
         {/* Login Card */}

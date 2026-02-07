@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Home, Users, Calendar, UserCheck, BarChart3, Menu, X } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import LogoutButton from './LogoutButton'
+import { RCCGLogo } from './RCCGLogo'
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: Home },
@@ -39,8 +40,8 @@ export function Navigation() {
           {/* Brand */}
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2.5 group" aria-label="Home">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/15 flex items-center justify-center group-hover:bg-white/25 transition-colors">
-                <span className="text-white text-base sm:text-lg font-bold">✦</span>
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors overflow-hidden p-0.5">
+                <RCCGLogo size="sm" variant="light" />
               </div>
               <div className="leading-tight">
                 <span className="text-white font-bold text-sm sm:text-base tracking-tight block">
