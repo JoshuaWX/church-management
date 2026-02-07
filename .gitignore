@@ -1,0 +1,30 @@
+node_modules
+# Keep environment variables out of version control
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# Database
+prisma/dev.db
+prisma/dev.db-journal
+
+# Build output
+.next/
+out/
+
+# IDE
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+.vercel
