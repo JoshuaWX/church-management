@@ -5,8 +5,7 @@ import {
   isRateLimited,
   recordFailedAttempt,
   clearRateLimit,
-  generateSessionToken,
-  createSession,
+  createSignedToken,
   getClientIP,
   getSecureCookieOptions,
 } from '@/lib/security';
@@ -74,9 +73,8 @@ export async function POST(request: Request) {
       // Clear rate limit on successful login
       clearRateLimit(clientIP);
       
-      // Generate secure session token
-      const sessionToken = generateSessionToken();
-      createSession(sessionToken, clientIP);
+      // Generate signed session token (stateless, works on serverless)
+      const sessionToken = await createSignedToken();
       
       // Set secure cookie
       const cookieOptions = getSecureCookieOptions();

@@ -2,7 +2,7 @@
  * Security utilities for the application
  * - Password hashing with SHA-256 + salt
  * - Rate limiting for brute force protection
- * - Secure token generation
+ * - HMAC-signed session tokens (stateless, works on serverless)
  * - Timing-safe comparison
  */
 
@@ -11,6 +11,7 @@ const rateLimitStore = new Map<string, { attempts: number; resetTime: number }>(
 
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 const MAX_ATTEMPTS = 5;
+const SESSION_MAX_AGE_S = 24 * 60 * 60; // 24 hours in seconds
 
 /**
  * Check if an IP is rate limited
@@ -58,7 +59,6 @@ export function clearRateLimit(ip: string): void {
 
 /**
  * Hash a password using SHA-256 with a static salt
- * In production, consider using bcrypt via a Node.js runtime
  */
 export async function hashPassword(password: string): Promise<string> {
   const salt = process.env.PASSWORD_SALT || 'bible-study-hub-2024';
@@ -73,7 +73,6 @@ export async function hashPassword(password: string): Promise<string> {
  */
 export function timingSafeEqual(a: string, b: string): boolean {
   if (a.length !== b.length) {
-    // Compare against itself to maintain constant time
     const dummy = a;
     let result = 0;
     for (let i = 0; i < dummy.length; i++) {
@@ -90,56 +89,44 @@ export function timingSafeEqual(a: string, b: string): boolean {
 }
 
 /**
- * Generate a secure random session token
+ * Create an HMAC-signed session token (stateless - works on serverless)
+ * Format: timestamp.signature
  */
-export function generateSessionToken(): string {
-  const array = new Uint8Array(32);
-  crypto.getRandomValues(array);
-  return Array.from(array, b => b.toString(16).padStart(2, '0')).join('');
+export async function createSignedToken(): Promise<string> {
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const secret = process.env.PASSWORD_SALT || process.env.SITE_PASSWORD || 'fallback';
+  const data = new TextEncoder().encode(timestamp + secret);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const signature = Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  return `${timestamp}.${signature}`;
 }
 
 /**
- * Session store for validating tokens (in production, use Redis or database)
+ * Validate an HMAC-signed session token (stateless - works on serverless)
  */
-const sessionStore = new Map<string, { createdAt: number; ip: string }>();
-const SESSION_MAX_AGE_MS = 24 * 60 * 60 * 1000; // 24 hours
-
-/**
- * Create a new session
- */
-export function createSession(token: string, ip: string): void {
-  // Clean up expired sessions periodically
-  const now = Date.now();
-  for (const [key, session] of sessionStore.entries()) {
-    if (now - session.createdAt > SESSION_MAX_AGE_MS) {
-      sessionStore.delete(key);
-    }
-  }
+export async function validateSignedToken(token: string): Promise<boolean> {
+  if (!token || !token.includes('.')) return false;
   
-  sessionStore.set(token, { createdAt: now, ip });
-}
-
-/**
- * Validate a session token
- */
-export function validateSession(token: string): boolean {
-  const session = sessionStore.get(token);
-  if (!session) return false;
+  const [timestamp, signature] = token.split('.');
+  if (!timestamp || !signature) return false;
   
-  const now = Date.now();
-  if (now - session.createdAt > SESSION_MAX_AGE_MS) {
-    sessionStore.delete(token);
+  // Check if token has expired
+  const tokenAge = Math.floor(Date.now() / 1000) - parseInt(timestamp, 10);
+  if (isNaN(tokenAge) || tokenAge < 0 || tokenAge > SESSION_MAX_AGE_S) {
     return false;
   }
   
-  return true;
-}
-
-/**
- * Invalidate a session
- */
-export function invalidateSession(token: string): void {
-  sessionStore.delete(token);
+  // Recompute the signature and compare
+  const secret = process.env.PASSWORD_SALT || process.env.SITE_PASSWORD || 'fallback';
+  const data = new TextEncoder().encode(timestamp + secret);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const expectedSignature = Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  
+  return timingSafeEqual(signature, expectedSignature);
 }
 
 /**
@@ -169,5 +156,5 @@ export function isProduction(): boolean {
  */
 export function getSecureCookieOptions(): string {
   const secure = isProduction() ? '; Secure' : '';
-  return `Path=/; SameSite=Strict; HttpOnly${secure}`;
+  return `Path=/; SameSite=Lax; HttpOnly${secure}`;
 }

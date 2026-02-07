@@ -5,7 +5,7 @@ import PasswordGate from '@/components/PasswordGate';
 import LogoutButton from '@/components/LogoutButton';
 import './globals.css';
 import { cookies } from 'next/headers';
-import { validateSession } from '@/lib/security';
+import { validateSignedToken } from '@/lib/security';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,8 +25,8 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const sessionToken = cookieStore.get('site_auth')?.value;
   
-  // Validate the session token (not just check if it exists)
-  const isAuthed = sessionToken ? validateSession(sessionToken) : false;
+  // Validate the signed session token (stateless, works on serverless)
+  const isAuthed = sessionToken ? await validateSignedToken(sessionToken) : false;
   return (
     <html lang="en">
       <body className={inter.className}>
