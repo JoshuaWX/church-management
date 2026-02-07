@@ -2,13 +2,11 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { MobileBottomNav } from '@/components/MobileBottomNav';
 import PasswordGate from '@/components/PasswordGate';
-import LogoutButton from '@/components/LogoutButton';
 import './globals.css';
 import { cookies } from 'next/headers';
 import { validateSignedToken } from '@/lib/security';
 
 const inter = Inter({ subsets: ['latin'] });
-
 
 export const metadata: Metadata = {
   title: 'Bible-Study HUB',
@@ -25,19 +23,15 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const sessionToken = cookieStore.get('site_auth')?.value;
   
-  // Validate the signed session token (stateless, works on serverless)
   const isAuthed = sessionToken ? await validateSignedToken(sessionToken) : false;
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-gray-50 text-gray-900 antialiased`}>
         {!isAuthed ? (
           <PasswordGate />
         ) : (
           <>
-            <div className="relative pb-16 sm:pb-0 min-h-screen">
-              <div className="absolute top-4 right-4 z-50">
-                <LogoutButton />
-              </div>
+            <div className="min-h-screen pb-16 sm:pb-0">
               {children}
             </div>
             <MobileBottomNav />

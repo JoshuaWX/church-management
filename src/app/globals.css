@@ -1,3 +1,109 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+
+  /* Better focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500 rounded-sm;
+  }
+}
+
+@layer components {
+  /* Card base */
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100;
+  }
+
+  /* Stat card */
+  .stat-card {
+    @apply card p-4 sm:p-5 text-center transition-shadow hover:shadow-md;
+  }
+
+  /* Page section heading */
+  .page-title {
+    @apply text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight;
+  }
+
+  .page-subtitle {
+    @apply text-gray-500 mt-1 text-sm sm:text-base;
+  }
+
+  /* Button base styles */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5
+           text-sm font-medium transition-all duration-150
+           focus-visible:outline-2 focus-visible:outline-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-500 text-white hover:bg-primary-600
+           focus-visible:outline-primary-500 active:bg-primary-700;
+  }
+
+  .btn-wine {
+    @apply btn bg-wine-500 text-white hover:bg-wine-600
+           focus-visible:outline-wine-500 active:bg-wine-700;
+  }
+
+  .btn-secondary {
+    @apply btn bg-gray-100 text-gray-700 hover:bg-gray-200
+           focus-visible:outline-gray-400 active:bg-gray-300;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-gray-600 hover:bg-gray-100
+           focus-visible:outline-gray-400;
+  }
+
+  /* Form input */
+  .input {
+    @apply w-full px-3 py-2.5 border border-gray-300 rounded-lg
+           text-sm bg-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500
+           transition-colors duration-150;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-green-50 text-green-700 ring-1 ring-green-600/20;
+  }
+
+  .badge-danger {
+    @apply badge bg-red-50 text-red-700 ring-1 ring-red-600/20;
+  }
+
+  .badge-warning {
+    @apply badge bg-amber-50 text-amber-700 ring-1 ring-amber-600/20;
+  }
+
+  .badge-info {
+    @apply badge bg-primary-50 text-primary-700 ring-1 ring-primary-600/20;
+  }
+
+  .badge-primary {
+    @apply badge bg-primary-100 text-primary-800;
+  }
+
+  .badge-green {
+    @apply badge bg-green-100 text-green-800;
+  }
+
+  .badge-pink {
+    @apply badge bg-pink-100 text-pink-700;
+  }
+}
