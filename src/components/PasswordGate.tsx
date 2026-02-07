@@ -57,7 +57,8 @@ export default function PasswordGate() {
         src="/images/ruc-chapel.jpg"
         alt="RUC Chapel"
         fill
-        className="object-cover"
+        className="object-cover object-center sm:object-center"
+        sizes="100vw"
         priority
         quality={85}
       />

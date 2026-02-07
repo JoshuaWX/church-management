@@ -133,6 +133,10 @@ export function Navigation() {
                   </Link>
                 )
               })}
+              {/* Mobile Logout */}
+              <div className="mt-2 pt-2 border-t border-white/10 px-1">
+                <LogoutButton />
+              </div>
             </div>
           </div>
         </>

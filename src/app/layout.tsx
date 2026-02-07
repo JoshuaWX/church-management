@@ -9,8 +9,12 @@ import { validateSignedToken } from '@/lib/security';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Bible-Study HUB',
+  title: 'RUC BIBLE-STUDY',
   description: 'Manage church members, birthdays, and attendance',
+  icons: {
+    icon: '/favicon.png',
+    apple: '/favicon.png',
+  },
 };
 
 export const viewport = 'width=device-width, initial-scale=1';

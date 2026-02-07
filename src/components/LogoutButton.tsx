@@ -16,7 +16,7 @@ export default function LogoutButton() {
       aria-label="Log out"
     >
       <LogOut className="h-4 w-4" />
-      <span className="hidden sm:inline">Log out</span>
+      <span>Log out</span>
     </button>
   );
 }
